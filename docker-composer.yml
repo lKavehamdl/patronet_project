@@ -1,0 +1,62 @@
+version: '3.8'
+
+services: #All application required services, each service will become a container
+  app: #My laravel Project
+    build: 
+      context: . #The directory which all necessary files are taken and the . means the directory of docker-composer.yml
+      dockerfile: Dockerfile #Name of the docker file used to build the service
+    image: laravel-app:latest #The image require to create service (lastest laravel)
+    container_name: laravel-app #Name of the container
+    restart: unless-stopped #restarting policy. this policy ensures that your app is still up in case of crashes
+    environment: #Setting enviorental variables
+      SERVICE_NAME: app 
+      SERVICE_TAGS: dev
+    working_dir: /var/www/html #Setting working directory somewhere that Appache/Nginx configures the server  
+    volumes: #Volumes used to share file between your local machine and the container
+      - .:/var/www/html #. is for the currnet directory and /var/www/html is inside container this allow changes made on host to reflect immediatly inside container ypu can mount a cutom php.ini file in your machine but it's not necessary
+    networks: #To communicate with other services
+      - laravel #App service is part of laravel network 
+
+  web: #Service represents the web server that will serve laravel application
+    image: nginx:alpine #Web server image
+    container_name: laravel-web #The container name
+    restart: unless-stopped #Restart policy
+    ports: #Port mapping from local host to container
+      - "8080:80"
+    volumes: #To share data
+      - .:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on: #This service depends on app service 
+      - app
+    networks: #To connect web service to network so this service can communicate with other services
+      - laravel
+
+  db: #Database service
+    image: mysql:8.0 #We are using MySQL 
+    container_name: laravel-db #Container name
+    restart: unless-stopped #Restart policy
+    environment: #Enviormental variables to have access to database
+      MYSQL_ROOT_PASSWORD: k..h3002
+      MYSQL_DATABASE: patronet
+      MYSQL_USER: root
+      MYSQL_PASSWORD: k..h3002
+      MYSQL_INITDB_SKIP_TZINFO: 1
+    volumes: #Map the volume named db_data to var/lib/mysql inside container. this ensuers data persists even when container stops 
+      - db_data:/var/lib/mysql
+    ports: #Mapping machine port to container port
+      - "3306:3306"
+    networks: #Same as other services 
+      - laravel
+    healthcheck: #We use this to check if a service is up and running good or bad 
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost"] #The command that docker will run to check containers health e.g. this command will check if mysql server is allive by giving simple query to them in shell
+      interval: 30s #How often docker should check the healt 
+      timeout: 10s #Time to check the answer of test command
+      retries: 5 #After 5 failures container status will be marked as unhealthy
+
+networks: #setting the network for services
+  laravel:
+    driver: bridge #defalt network type in docker
+
+volumes: #Named volumes that docker-composer will manage 
+  db_data: #Make this volume to presist MySQL data
+    driver: local #The data will be stored locally in docker host  
