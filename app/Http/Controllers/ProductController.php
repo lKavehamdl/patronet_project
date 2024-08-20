@@ -20,6 +20,16 @@ class ProductController extends Controller
     
     public function index(Request $request)
     {
+        $paginated = request("paginated");
+        if($paginated == "true"){
+            $perPage = request("perPgae");
+            $currPage = request("page");
+            $response = $this->productInterface->paginate($perPage, $currPage);
+            return response()->json($response);
+        }
+        else{
+
+        }
         $response = $this->productInterface->all();
         return response()->json($response);
     }

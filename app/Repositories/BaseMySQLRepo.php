@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Paginate\MyPaginator;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 
 abstract class BaseMySQLRepo{
@@ -12,7 +14,6 @@ abstract class BaseMySQLRepo{
     public function __construct($model){
         $this->model = $model;
     }
-
     public function get(){
         $response = $this->model->all();
         return response()->json($response);

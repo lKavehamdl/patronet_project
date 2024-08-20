@@ -11,9 +11,6 @@ class CodingMockRepo extends BaseMockRepo implements CodingInterface{
         $this->nextId = 3;
     }
 
-    public function paginate($perPage, $currpage){
-        return parent::paginate($perPage, $currpage);
-    }
     public function all(){
         return parent::get();
     }

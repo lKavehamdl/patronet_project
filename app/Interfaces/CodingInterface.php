@@ -2,7 +2,7 @@
 
 namespace  App\Interfaces;
 
-interface CodingInterface{
+interface CodingInterface extends MyPaginatorInterface{
     public function all();
     public function findById($id);
     public function findByIds(array $ids);
@@ -12,4 +12,5 @@ interface CodingInterface{
     public function createPermuations($arrays);
     public function generatePermutations($arrays);
     public function findBrandID($coding_id);
+    public function paginate($perPage, $currPage);
 }

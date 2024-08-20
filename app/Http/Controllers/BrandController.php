@@ -23,15 +23,22 @@ class BrandController extends Controller
         $response = $this->brandInterface->findByIds($array);
         return response()->json($response);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index(Request $request)
     {
-        $response = $this->brandInterface->all();
-        return response()->json($response);
+        $paginated = request("paginated");
+        if($paginated == "true"){
+            $perPage = request("perPage");
+            $currPage = request("page");
+            // dd($perPage);
+            $response = $this->brandInterface->paginate($perPage, $currPage);
+            return response()->json($response);
+        }
+        else{
+            echo "ALO :/";
+            $response = $this->brandInterface->all();
+            return response()->json($response);
+        }
     }
 
     
