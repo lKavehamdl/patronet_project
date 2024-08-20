@@ -30,14 +30,7 @@ class BrandController extends Controller
      */
     public function index(Request $request)
     {
-        
-        $response = [];
-        if($request->input('paginate') == "true"){
-            $response = $this->brandInterface->paginate("brands", $request->input('perPage'), $request->input("currPage"));
-        }
-        else{
-            $response = $this->brandInterface->all();
-        }
+        $response = $this->brandInterface->all();
         return response()->json($response);
     }
 

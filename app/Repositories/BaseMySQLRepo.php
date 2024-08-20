@@ -13,11 +13,6 @@ abstract class BaseMySQLRepo{
         $this->model = $model;
     }
 
-    public function paginate($tableName, $perPage, $currpage){
-        $response = $this->model->KOMAK($tableName, $perPage, $currpage);
-        return response()->json($response);
-    }
-
     public function get(){
         $response = $this->model->all();
         return response()->json($response);

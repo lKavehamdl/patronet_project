@@ -5,7 +5,6 @@ use App\Models\Product;
 
 interface ProductInterface{
 
-    public function paginate($tableName, $perPage, $currpage);
     public function all();
     public function findById($id);
     public function findByIds(array $ids);

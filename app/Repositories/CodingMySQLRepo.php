@@ -9,10 +9,6 @@ class CodingMySQLRepo extends BaseMySQLRepo implements CodingInterface{
     public function __construct($model){
         parent::__construct($model);
     }
-
-    public function paginate($tableName, $perPage, $currpage){
-        return parent::paginate($tableName, $perPage, $currpage);
-    }
     public function all(){
         return parent::get();
     }

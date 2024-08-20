@@ -20,15 +20,7 @@ class ProductController extends Controller
     
     public function index(Request $request)
     {
-        // dd($request->input('paginate'));
-        $response = [];
-        if($request->input('paginate') == "true"){
-            // echo "MADE IT!";
-            $response = $this->productInterface->paginate("products", $request->input('perPage'), $request->input("currPage"));
-        }
-        else{
-            $response = $this->productInterface->all();
-        }
+        $response = $this->productInterface->all();
         return response()->json($response);
     }
 

@@ -23,13 +23,7 @@ class CodingController extends Controller
      */
     public function index(Request $request)
     {
-        $response = [];
-        if($request->input('paginate') == "true"){
-            $response = $this->codingInterface->paginate("codings", $request->input('perPage'), $request->input("currPage"));
-        }
-        else{
-            $response = $this->codingInterface->all();
-        }
+        $response = $this->codingInterface->all();
         return response()->json($response);
 
     }

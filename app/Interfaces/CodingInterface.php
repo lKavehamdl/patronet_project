@@ -3,7 +3,6 @@
 namespace  App\Interfaces;
 
 interface CodingInterface{
-    public function paginate($tableName, $perPage, $currpage);
     public function all();
     public function findById($id);
     public function findByIds(array $ids);
