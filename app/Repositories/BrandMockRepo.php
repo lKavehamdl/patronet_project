@@ -12,6 +12,9 @@ class BrandMockRepo extends BaseMockRepo implements BrandInterface{
         ];
         $this->nextId = 3;
     }
+    public function paginate($perPage, $currPage){
+        return parent::paginate($perPage, $currPage);
+    }
     public function all(){
         return parent::get();
     }

@@ -35,7 +35,7 @@ class BrandController extends Controller
             return response()->json($response);
         }
         else{
-            echo "ALO :/";
+            // echo "ALO :/";
             $response = $this->brandInterface->all();
             return response()->json($response);
         }

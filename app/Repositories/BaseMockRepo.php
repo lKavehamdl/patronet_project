@@ -10,9 +10,9 @@ abstract class BaseMockRepo{
         $this->items = $items;
     }
 
-    public function paginate($perPage, $currpage){
-        $offset = ($currpage-1) * $perPage;
-        $dst = $currpage * $perPage;
+    public function paginate($perPage, $currPgae){
+        $offset = ($currPgae-1) * $perPage;
+        $dst = $currPgae * $perPage;
         $data = [];
         while($offset < $dst){
             $data[] = $this->items[$offset];

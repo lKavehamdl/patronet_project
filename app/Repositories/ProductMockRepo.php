@@ -19,6 +19,9 @@ class ProductMockRepo extends BaseMockRepo implements ProductInterface{
     
     }
 
+    public function paginate($perPage, $currPgae){
+        return parent::paginate($perPage, $currPgae);
+    }
     public function all(){
         return parent::get();
     }
