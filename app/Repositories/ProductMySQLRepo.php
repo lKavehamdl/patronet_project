@@ -7,7 +7,7 @@ class ProductMySQLRepo extends BaseMySQLRepo implements ProductInterface{
         parent::__construct($model);
     }
     public function paginate($perPage, $currPage){
-        return $this->model::with([])->paginate($perPage, ['*'], 'page', $currPage);
+        return parent::paginate($perPage, $currPage);
     }
     public function all(){
         return parent::get();

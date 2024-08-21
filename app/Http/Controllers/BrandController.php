@@ -42,7 +42,7 @@ class BrandController extends Controller
     }
 
     
-    public function store(StoreBrandRequest $request)
+    public function store(StoreBrandRequest $request)   
     {
         $data = $request->all();
         return $this->brandInterface->create($data);   

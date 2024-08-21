@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\DB;
 abstract class BaseMySQLRepo{
 
     protected $model;
-
+    public function paginate($perPage, $currPage){
+        return $this->model::with([])->paginate($perPage, ['*'], 'page', $currPage);
+    }
     public function __construct($model){
         $this->model = $model;
     }
